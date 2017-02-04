@@ -1,5 +1,5 @@
 FROM test/spark
-MAINTAINER Alen Komljen <alen@crondev.com>
+MAINTAINER IS
 
 COPY run.sh /
 
