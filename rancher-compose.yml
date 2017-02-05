@@ -1,0 +1,78 @@
+version: '2'
+services:
+  namenode:
+    image: bf16574403/hadoop-namenode
+    container_name: namenode
+    volumes:
+      - ./data/namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    ports:
+      - "50070:50070"
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: bf16574403/hadoop-datanode
+    depends_on:
+      - namenode
+    volumes:
+      - ./data/datanode:/hadoop/dfs/data
+    ports:
+      - "50075"
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: bf16574403/hadoop-resourcemanager
+    container_name: resourcemanager
+    depends_on:
+      - namenode
+      - datanode
+    ports:
+      - "8088:8088"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager:
+    image: bf16574403/hadoop-nodemanager
+    depends_on:
+      - namenode
+      - resourcemanager
+    env_file:
+      - ./hadoop.env
+
+  historyserver:
+    image: bf16574403/hadoop-historyserver
+    container_name: historyserver
+    depends_on:
+      - namenode
+    volumes:
+      - ./data/historyserver:/hadoop/yarn/timeline
+    ports:
+      - "8188:8188"
+    env_file:
+      - ./hadoop.env
+
+  spark-master:
+    image: bf16574403/spark-master
+    container_name: spark-master
+    depends_on:
+      - namenode
+      - datanode
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    env_file:
+      - ./hadoop.env
+
+#  spark-worker:
+#    image: test/spark-worker
+#    depends_on:
+#      - spark-master
+#    environment:
+#      - "SPARK_MASTER=spark://spark-master:7077"
+#    ports:
+#      - "8081:8081"
+#    env_file:
+#      - ./hadoop.env
