@@ -4,7 +4,7 @@ services:
     image: bf16574403/hadoop-namenode
     container_name: namenode
     volumes:
-      - ./data/namenode:/hadoop/dfs/name
+      - /data/namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=test
     ports:
@@ -17,7 +17,7 @@ services:
     depends_on:
       - namenode
     volumes:
-      - ./data/datanode:/hadoop/dfs/data
+      - /data/datanode:/hadoop/dfs/data
     ports:
       - "50075"
     env_file:
@@ -48,7 +48,7 @@ services:
     depends_on:
       - namenode
     volumes:
-      - ./data/historyserver:/hadoop/yarn/timeline
+      - /data/historyserver:/hadoop/yarn/timeline
     ports:
       - "8188:8188"
     env_file:
@@ -66,13 +66,3 @@ services:
     env_file:
       - ./hadoop.env
 
-#  spark-worker:
-#    image: test/spark-worker
-#    depends_on:
-#      - spark-master
-#    environment:
-#      - "SPARK_MASTER=spark://spark-master:7077"
-#    ports:
-#      - "8081:8081"
-#    env_file:
-#      - ./hadoop.env
