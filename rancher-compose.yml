@@ -9,6 +9,9 @@ services:
       - CLUSTER_NAME=test
     ports:
       - "50070:50070"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     env_file:
       - ./hadoop.env
 
@@ -20,6 +23,9 @@ services:
       - /data/datanode:/hadoop/dfs/data
     ports:
       - "50075"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     env_file:
       - ./hadoop.env
 
@@ -31,14 +37,24 @@ services:
       - datanode
     ports:
       - "8088:8088"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     env_file:
       - ./hadoop.env
+#    environment:
+#      - HADOOP_LOGLEVEL=DEBUG
 
   nodemanager:
     image: bf16574403/hadoop-nodemanager
     depends_on:
       - namenode
       - resourcemanager
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+    ports:
+      - "8042"
     env_file:
       - ./hadoop.env
 
@@ -49,6 +65,9 @@ services:
       - namenode
     volumes:
       - /data/historyserver:/hadoop/yarn/timeline
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     ports:
       - "8188:8188"
     env_file:
@@ -60,6 +79,9 @@ services:
     depends_on:
       - namenode
       - datanode
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
     ports:
       - "8080:8080"
       - "7077:7077"
