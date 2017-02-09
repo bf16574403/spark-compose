@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [[ ! -d "$NAMENODE_DFS_DIR" ]]; then
-  echo "Namenode name directory not found: $NAMENODE_DFS_DIR"
-  exit 2
-fi
+#if [[ ! -d "$NAMENODE_DFS_DIR" ]]; then
+#  echo "Namenode name directory not found: $NAMENODE_DFS_DIR"
+#  exit 2
+#fi
 
 if [[ -z "$CLUSTER_NAME" ]]; then
   echo "Cluster name not specified"

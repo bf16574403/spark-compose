@@ -7,6 +7,7 @@ services:
       - /data/namenode:/hadoop/dfs/name
     environment:
       - CLUSTER_NAME=test
+      - NAMENODE_DFS_DIR=/tmp/hadoop-root/dfs/name
     ports:
       - "50070:50070"
     labels:
