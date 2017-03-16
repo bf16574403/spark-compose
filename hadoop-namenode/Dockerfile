@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM test/hadoop
+=======
+FROM bf16574403/hadoop
+>>>>>>> Add kafka stack
 
 ENV NAMENODE_DFS_DIR=/hadoop/dfs/name
 RUN mkdir -p "$NAMENODE_DFS_DIR"

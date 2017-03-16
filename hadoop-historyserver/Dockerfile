@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM test/hadoop
+=======
+FROM bf16574403/hadoop
+>>>>>>> Add kafka stack
 
 ENV YARN_CONF_yarn_timeline___service_leveldb___timeline___store_path=/hadoop/yarn/timeline
 RUN mkdir -p /hadoop/yarn/timeline

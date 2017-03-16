@@ -66,6 +66,67 @@ services:
     env_file:
       - ./hadoop.env
 
+<<<<<<< HEAD
+=======
+  zookeeper1:
+    container_name: zookeeper1
+    image: bf16574403/zookeeper
+    environment:
+      - ZOOKEEPER_ID=1
+      - ZOOKEEPER_SERVERS=zookeeper1:2888:3888,zookeeper2:2889:3889,zookeeper3:2890:3890
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+
+  zookeeper2:
+    container_name: zookeeper2
+    image: bf16574403/zookeeper
+    environment:
+      - ZOOKEEPER_ID=2
+      - ZOOKEEPER_SERVERS=zookeeper1:2888:3888,zookeeper2:2889:3889,zookeeper3:2890:3890
+    ports:
+      - "2182:2181"
+      - "2889:2888"
+      - "3889:3888"
+
+  zookeeper3:
+    container_name: zookeeper3
+    image: bf16574403/zookeeper
+    environment:
+      - ZOOKEEPER_ID=3
+      - ZOOKEEPER_SERVERS=zookeeper1:2888:3888,zookeeper2:2889:3889,zookeeper3:2890:3890
+    ports:
+      - "2183:2181"
+      - "2890:2888"
+      - "3890:3888"
+
+  kafka:
+    image: bf16574403/kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    environment:
+      - ZOOKEEPER_SERVERS=zookeeper1:2181,zookeeper2:2182,zookeeper3:2183
+    ports:
+      - "9092:9092"
+
+  kafka-manager:
+    image: bf16574403/kafka-manager
+    container_name: kafka-manager
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+      - kafka
+    environment:
+      - ZK_HOSTS=zookeeper1:2181,zookeeper2:2182,zookeeper3:2183
+    ports:
+      - "9000:9000"
+
+>>>>>>> Add kafka stack
 #  spark-worker:
 #    image: test/spark-worker
 #    depends_on:
