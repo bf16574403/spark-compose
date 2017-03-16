@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM test/hadoop
-=======
 FROM bf16574403/hadoop
->>>>>>> Add kafka stack
 
 ENV SPARK_VERSION=2.1.0
 ENV HADOOP_VERSION=2.7

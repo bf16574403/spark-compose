@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM test/hadoop
-=======
 FROM bf16574403/hadoop
->>>>>>> Add kafka stack
 
 ENV DATANODE_DFS_DIR=/hadoop/dfs/data
 RUN mkdir -p "$DATANODE_DFS_DIR"

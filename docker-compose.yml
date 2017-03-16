@@ -66,8 +66,6 @@ services:
     env_file:
       - ./hadoop.env
 
-<<<<<<< HEAD
-=======
   zookeeper1:
     container_name: zookeeper1
     image: bf16574403/zookeeper
@@ -126,7 +124,6 @@ services:
     ports:
       - "9000:9000"
 
->>>>>>> Add kafka stack
 #  spark-worker:
 #    image: test/spark-worker
 #    depends_on:

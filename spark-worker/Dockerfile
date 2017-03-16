@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-FROM test/spark
-MAINTAINER IS
-=======
 FROM bf16574403/spark
->>>>>>> Add kafka stack
 
 COPY run.sh /
 
