@@ -1,17 +1,28 @@
-# Main dir:
-cd hadoop-spark
-
-# Build images:
+Build images:
+```
 bash build-images.sh
+```
 
-# Start environment:
+Push images to remote:
+```
+bash push-images.sh bf16574403
+```
+
+# Docker compose
+
+Start environment:
+```
 docker-compose up (this will be in fronted mode, open new shell to run docker commands or add "-d" swith to this command)
+```
 
-# URLs:
+URLs:
+```
 http://localhost:50070 (namenode)
 http://localhost:8088/cluster (Resource manager - Yarn)
+```
 
-# Run sample cluster job from spark-master container. Connect to the container:
+Run sample cluster job from spark-master container. Connect to the container:
+```
 docker exec -i -t spark-master bash
 
 cd /opt/spark
@@ -24,13 +35,15 @@ cd /opt/spark
 --executor-memory 1g \
 --executor-cores 1 \
 examples/jars/spark-examples_2.11-2.1.0.jar
+```
 
-# Browse the filesystem:
-http://localhost:50070/explorer.html
+Browse the filesystem: http://localhost:50070/explorer.html
 
-# Kill the environment:
+Kill the environment:
+```
 docker-compose kill
 docker-compose rm -f
+```
 
 # Kubernetes
 
@@ -41,7 +54,7 @@ kubectl create secret docker-registry regsecret --docker-username=bf16574403 --d
 
 Create all resorces from directory:
 ```
-kubectl create -f ~/hadoop-spark/kube -R
+kubectl create -f spark-compose/kube -R
 ```
 
 Check pods:
