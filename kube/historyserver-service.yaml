@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    name: historyserver
+  name: historyserver
+spec:
+  ports:
+  - name: "8188"
+    port: 8188
+    targetPort: 8188
+  selector:
+    name: historyserver

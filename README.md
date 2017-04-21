@@ -31,3 +31,20 @@ http://localhost:50070/explorer.html
 # Kill the environment:
 docker-compose kill
 docker-compose rm -f
+
+# Kubernetes
+
+Create kube secret to be able to pull private images on kube nodes:
+```
+kubectl create secret docker-registry regsecret --docker-username=bf16574403 --docker-password='PASSWORD' --docker-email=bosanac@inbox.com
+```
+
+Create all resorces from directory:
+```
+kubectl create -f ~/hadoop-spark/kube -R
+```
+
+Check pods:
+```
+kubectl get pods -o wide
+```
