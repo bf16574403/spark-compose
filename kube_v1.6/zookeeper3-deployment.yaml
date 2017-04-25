@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: zookeeper3
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: zookeeper3
+    spec:
+      containers:
+      - env:
+        - name: ZOOKEEPER_ID
+          value: "3"
+        - name: ZOOKEEPER_SERVERS
+          value: zookeeper1:2888:3888,zookeeper2:2888:3888,0.0.0.0:2888:3888
+        image: bf16574403/zookeeper
+        name: zookeeper3
+        ports:
+        - containerPort: 2181
+        - containerPort: 2888
+        - containerPort: 3888
+        resources: {}
+      imagePullSecrets:
+        - name: regsecret
+      restartPolicy: Always
+status: {}

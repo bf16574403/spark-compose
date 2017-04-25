@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: resourcemanager
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: resourcemanager
+    spec:
+      containers:
+      - env:
+        - name: HADOOP_LOGLEVEL
+          value: DEBUG
+        envFrom:
+          - configMapRef:
+              name: hadoop-env
+        image: bf16574403/hadoop-resourcemanager
+        name: resourcemanager
+        ports:
+        - containerPort: 8088
+        resources: {}
+      imagePullSecrets:
+        - name: regsecret
+      restartPolicy: Always
+status: {}

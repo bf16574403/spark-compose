@@ -14,11 +14,52 @@ spec:
     spec:
       containers:
       - env:
-        - name: HADOOP_LOGLEVEL
-          value: DEBUG
-        envFrom:
-          - configMapRef:
-              name: hadoop-env
+        - name: CORE_CONF_fs_defaultFS
+          value: hdfs://namenode:8020
+        - name: CORE_CONF_hadoop_http_staticuser_user
+          value: root
+        - name: CORE_CONF_hadoop_proxyuser_hue_hosts
+          value: '*'
+        - name: CORE_CONF_hadoop_proxyuser_hue_groups
+          value: '*'
+        - name: HDFS_CONF_dfs_webhdfs_enabled
+          value: "true"
+        - name: HDFS_CONF_dfs_permissions_enabled
+          value: "false"
+        - name: HDFS_CONF_dfs_namenode_datanode_registration_ip___hostname___check
+          value: "false"
+        - name: HDFS_CONF_dfs_client_use_datanode_hostname
+          value: "false"
+        - name: HDFS_CONF_dfs_datanode_use_datanode_hostname
+          value: "false"
+        - name: YARN_CONF_yarn_log___aggregation___enable
+          value: "true"
+        - name: YARN_CONF_yarn_log_server_url
+          value: http://historyserver:8188/applicationhistory/logs/
+        - name: YARN_CONF_yarn_nodemanager_remote___app___log___dir
+          value: /app-logs
+        - name: YARN_CONF_yarn_timeline___service_enabled
+          value: "false"
+        - name: YARN_CONF_yarn_timeline___service_generic___application___history_enabled
+          value: "true"
+        - name: YARN_CONF_yarn_timeline___service_hostname
+          value: historyserver
+        - name: YARN_CONF_yarn_resourcemanager_recovery_enabled
+          value: "true"
+        - name: YARN_CONF_yarn_resourcemanager_store_class
+          value: org.apache.hadoop.yarn.server.resourcemanager.recovery.FileSystemRMStateStore
+        - name: YARN_CONF_yarn_resourcemanager_fs_state___store_uri
+          value: /rmstate
+        - name: YARN_CONF_yarn_resourcemanager_system___metrics___publisher_enabled
+          value: "true"
+        - name: YARN_CONF_yarn_resourcemanager_hostname
+          value: resourcemanager
+        - name: YARN_CONF_yarn_resourcemanager_address
+          value: resourcemanager:8032
+        - name: YARN_CONF_yarn_resourcemanager_scheduler_address
+          value: resourcemanager:8030
+        - name: YARN_CONF_yarn_resourcemanager_resource__tracker_address
+          value: resourcemanager:8031
         image: bf16574403/hadoop-resourcemanager
         name: resourcemanager
         ports:

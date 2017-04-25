@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: nodemanager
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: nodemanager
+    spec:
+      containers:
+      - env:
+        envFrom:
+          - configMapRef:
+              name: hadoop-env
+        image: bf16574403/hadoop-nodemanager
+        name: nodemanager
+        resources: {}
+      imagePullSecrets:
+        - name: regsecret
+      restartPolicy: Always
+status: {}

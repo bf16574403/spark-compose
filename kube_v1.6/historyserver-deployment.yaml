@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: historyserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: historyserver
+    spec:
+      containers:
+      - env:
+        envFrom:
+          - configMapRef:
+              name: hadoop-env
+        image: bf16574403/hadoop-historyserver
+        name: historyserver
+        ports:
+        - containerPort: 8188
+        resources: {}
+#        volumeMounts:
+#        - mountPath: /hadoop/yarn/timeline
+#          name: historyserver-claim0
+      imagePullSecrets:
+        - name: regsecret
+      restartPolicy: Always
+#      volumes:
+#      - name: historyserver-claim0
+#        persistentVolumeClaim:
+#          claimName: historyserver-claim0
+status: {}

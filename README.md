@@ -47,17 +47,36 @@ docker-compose rm -f
 
 # Kubernetes
 
-Create kube secret to be able to pull private images on kube nodes:
+Create environments:
 ```
-kubectl create secret docker-registry regsecret --docker-username=bf16574403 --docker-password='PASSWORD' --docker-email=bosanac@inbox.com
+kubectl create namespace green
+kubectl create namespace blue
 ```
 
-Create all resorces from directory:
+Create kube secret to be able to pull private images on kube nodes for each env:
 ```
-kubectl create -f spark-compose/kube -R
+kubectl create secret docker-registry regsecret --docker-username=bf16574403 --docker-password='PASSWORD' --docker-email=bosanac@inbox.com --namespace=green
+kubectl create secret docker-registry regsecret --docker-username=bf16574403 --docker-password='PASSWORD' --docker-email=bosanac@inbox.com --namespace=blue
+```
+
+Create all resources from directory for each env:
+```
+kubectl create -f spark-compose/kube -R --namespace=green
+kubectl create -f spark-compose/kube -R --namespace=blue
 ```
 
 Check pods:
 ```
-kubectl get pods -o wide
+kubectl get pods -o wide --all-namespacs
 ```
+
+Run a command in a container:
+```
+kubectl exec spark-master-2453669239-tfbzs --namespace=green -- ps -ef
+```
+
+Check logs for a container:
+```
+kubectl logs spark-master-2453669239-tfbzs --namespace=green
+```
+

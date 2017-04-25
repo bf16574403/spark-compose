@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: namenode
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: namenode
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_NAME
+          value: test
+        - name: NAMENODE_DFS_DIR
+          value: /tmp/hadoop-root/dfs/name
+        envFrom:
+          - configMapRef:
+              name: hadoop-env
+        image: bf16574403/hadoop-namenode
+        name: namenode
+        ports:
+        - containerPort: 50070
+        resources: {}
+#        volumeMounts:
+#        - mountPath: /hadoop/dfs/name
+#          name: namenode-claim0
+      imagePullSecrets:
+        - name: regsecret
+      restartPolicy: Always
+#      volumes:
+#      - name: namenode-claim0
+#        persistentVolumeClaim:
+#          claimName: namenode-claim0
+status: {}

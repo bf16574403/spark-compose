@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: namenode
+  annotations:
+    scale: "1"
+    http.port: "50070"
+spec:
+  backend:
+    serviceName: namenode
+    servicePort: 50070

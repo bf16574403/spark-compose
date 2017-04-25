@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kafka-manager
+  annotations:
+    scale: "1"
+    http.port: "9000"
+spec:
+  backend:
+    serviceName: kafka-manager
+    servicePort: 9000
