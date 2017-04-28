@@ -80,3 +80,9 @@ Check logs for a container:
 kubectl logs spark-master-2453669239-tfbzs --namespace=green
 ```
 
+Delete all resources from directory for each env:
+```
+kubectl delete -f spark-compose/kube -R --namespace=green
+kubectl delete -f spark-compose/kube -R --namespace=blue
+```
+

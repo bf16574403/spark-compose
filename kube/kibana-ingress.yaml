@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kibana
+  annotations:
+    scale: "1"
+    http.port: "5601"
+spec:
+  backend:
+    serviceName: kibana
+    servicePort: 5601
