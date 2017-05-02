@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: kafka-manager
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kafka-manager
+    spec:
+      containers:
+      - env:
+        - name: ZK_HOSTS
+          value: zookeeper1:2181,zookeeper2:2182,zookeeper3:2183
+        image: bf16574403/kafka-manager
+        name: kafka-manager
+        ports:
+        - containerPort: 9000
+        resources: {}
+      restartPolicy: Always
+status: {}

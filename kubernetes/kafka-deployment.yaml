@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: kafka
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kafka
+    spec:
+      containers:
+      - env:
+        - name: ZOOKEEPER_SERVERS
+          value: zookeeper1:2181,zookeeper2:2182,zookeeper3:2183
+        image: bf16574403/kafka
+        name: kafka
+        ports:
+        - containerPort: 9092
+        resources: {}
+      restartPolicy: Always
+status: {}
