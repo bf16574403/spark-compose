@@ -86,3 +86,5 @@ kubectl delete -f spark-compose/kube -R --namespace=green
 kubectl delete -f spark-compose/kube -R --namespace=blue
 ```
 
+Kibana dash needs to be configured manually. Open Kibana dash and replace ```logstash-*``` with ```filebeat-*```. Click on create and you should see logs on Discover.
+
